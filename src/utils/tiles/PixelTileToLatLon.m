@@ -9,4 +9,3 @@ latitude    = tile_latitude + error_latitude;
 longitude   = tile_longitude + error_longitude;
 
 end
-

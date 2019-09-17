@@ -10,4 +10,3 @@ lat_rad     = atan(sinh(pi * (1 - 2*tile.Line / n)));
 latitude    = rad2deg(lat_rad);
 
 end
-
