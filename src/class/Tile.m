@@ -5,7 +5,7 @@ classdef Tile
     properties
         Column   = 1
         Line     = 1   
-        RefPixel = [128 128] % A specifically referenced pixel, by default: center pixel
+        RefPixel = [1 1] % A specifically referenced pixel, by default: top left pixel
     end
     
     methods

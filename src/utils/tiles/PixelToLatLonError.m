@@ -2,12 +2,15 @@ function [latitude_error,longitude_error] = PixelToLatLonError(pixel,tile,zoom)
 %PIXELTOLATLONERROR Summary of this function goes here
 %   Detailed explanation goes here
 
-% Pixel coordinates in considered tile
-% [1,1] corresponds to tile top left corner
-x = pixel(1)/256;
-y = pixel(2)/256;
+%% Pixel coordinates in considered tile
+% Pixel x and y coordinates must lie in [1,256]
+ErrorIfPointNotInSquare(pixel,1,256,'Pixel coordinates must be within [1,256]')
 
-% Calculation
+% [1,1] corresponds to tile top left corner
+x = (pixel(1)-1)/256;
+y = (pixel(2)-1)/256;
+
+%% Calculation
 n                   = 2^zoom;
 
 % Longitude error does not depend on the considered tile
