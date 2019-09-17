@@ -37,7 +37,9 @@ classdef MapTiled
             imshow(obj.VisibleMap);
             % TODO : center on given x,y (CenterTile.RefPixel)
         end
-        
+    end
+    
+    methods (Access = private)
         function obj = updateMapTiles(obj)
             % Center tile coordinates in the map Tiles array
             x_ct = obj.CenterTileCoordinates(1);
@@ -94,10 +96,6 @@ classdef MapTiled
             end
             TilePath = [t_TilesFolder num2str(obj.ZoomLevel) filesep num2str(Tile.Column) filesep num2str(Tile.Line) '.png'];
         end
-    end
-    
-    methods (Access = private)
-        
     end
     
 end
