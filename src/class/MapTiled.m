@@ -32,9 +32,8 @@ classdef MapTiled
         end
         
         % TODO: just for debug, to be deleted
-        function debugDisplayMap(obj)
-            figure;
-            imshow(obj.VisibleMap);
+        function debugDisplayMap(obj,axHandle)
+            imshow(obj.VisibleMap,'Parent',axHandle);
             % TODO : center on given x,y (CenterTile.RefPixel)
         end
     end
