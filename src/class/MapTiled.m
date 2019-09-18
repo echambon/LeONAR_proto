@@ -33,8 +33,10 @@ classdef MapTiled
         
         % TODO: just for debug, to be deleted
         function debugDisplayMap(obj,axHandle)
-            imshow(obj.VisibleMap,'Parent',axHandle);
+            imshow(obj.VisibleMap,'Parent',axHandle,'InitialMagnification',100);
+%             image(obj.VisibleMap,'Parent',axHandle);
             % TODO : center on given x,y (CenterTile.RefPixel)
+            % TODO : only display the pixels visible in the current axes dimensions
         end
     end
     
