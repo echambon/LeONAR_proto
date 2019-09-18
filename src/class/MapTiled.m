@@ -44,8 +44,8 @@ classdef MapTiled
             
             % TODO : dedicated function
             % Build around CenterTile.RefPixel
-            ctRefPixelX = obj.CenterTileCoordinates(1)*256 + obj.CenterTile.RefPixel(2);
-            ctRefPixelY = obj.CenterTileCoordinates(2)*256 + obj.CenterTile.RefPixel(1);
+            ctRefPixelX = (obj.CenterTileCoordinates(1)-1)*256 + obj.CenterTile.RefPixel(2);
+            ctRefPixelY = (obj.CenterTileCoordinates(2)-1)*256 + obj.CenterTile.RefPixel(1);
             displayedHeightPixels = [(ctRefPixelX-floor(axHeight/2)):ctRefPixelX-1 ctRefPixelX:(ctRefPixelX+floor(axHeight/2))];
             displayedWidthPixels  = [(ctRefPixelY-floor(axWidth/2)):ctRefPixelY-1  ctRefPixelY:(ctRefPixelY+floor(axWidth/2))];
             
