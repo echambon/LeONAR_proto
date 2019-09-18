@@ -31,34 +31,34 @@ classdef MapTiled
             obj = obj.buildVisibleMap;
         end
         
-        % TODO: just for debug, to be deleted
+        % TODO: just for debug, to be transformed into true function
         function debugDisplayMap(obj,axHandle)
+            % Update pixels to display
+            [obj,displayedHeightPixels,displayedWidthPixels] = GetPixelsToDisplay(obj,axHandle);
+            
+            % Showing map
+            imshow(obj.VisibleMap(displayedHeightPixels,displayedWidthPixels,:),'Parent',axHandle,'InitialMagnification',100);
+        end
+    end
+    
+    methods (Access = private)
+        function [obj,displayedHeightPixels,displayedWidthPixels] = GetPixelsToDisplay(obj,axHandle)
             % obj.VisibleMap is of size [height_pixels width_pixels]
-            % axHandle.Position is of size [_ _ width height]
-            % TODO : center on given x,y (CenterTile.RefPixel)
-            % TODO : manage central pixel
-            
+            % axHandle.Position is of size [_ _ width height]            
             % Axes position
-            axHeight    = axHandle.Position(4)
-            axWidth     = axHandle.Position(3)
+            axHeight    = axHandle.Position(4);
+            axWidth     = axHandle.Position(3);
             
-            % TODO : dedicated function
             % Build around CenterTile.RefPixel
             ctRefPixelX = (obj.CenterTileCoordinates(1)-1)*256 + obj.CenterTile.RefPixel(2);
             ctRefPixelY = (obj.CenterTileCoordinates(2)-1)*256 + obj.CenterTile.RefPixel(1);
             displayedHeightPixels = [(ctRefPixelX-floor(axHeight/2)):ctRefPixelX-1 ctRefPixelX:(ctRefPixelX+floor(axHeight/2))];
             displayedWidthPixels  = [(ctRefPixelY-floor(axWidth/2)):ctRefPixelY-1  ctRefPixelY:(ctRefPixelY+floor(axWidth/2))];
             
+            % WORKING!!! TO BE DELETED (with obj output)
             obj.VisibleMap(ctRefPixelX-5:ctRefPixelX+5,ctRefPixelY-5:ctRefPixelY+5,:) = 0; % debug
-            % TODO : not really working, this is not the correct Lat/Lon ...
-            
-            imshow(obj.VisibleMap(displayedHeightPixels,displayedWidthPixels,:),'Parent',axHandle,'InitialMagnification',100);
-%             imshow(obj.VisibleMap(1:axHeight,1:axWidth,:),'Parent',axHandle,'InitialMagnification',100);
-%             image(obj.VisibleMap,'Parent',axHandle);
         end
-    end
-    
-    methods (Access = private)
+        
         function obj = updateMapTiles(obj)
             % Center tile coordinates in the map Tiles array
             x_ct = obj.CenterTileCoordinates(1);
