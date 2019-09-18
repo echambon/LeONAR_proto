@@ -33,10 +33,28 @@ classdef MapTiled
         
         % TODO: just for debug, to be deleted
         function debugDisplayMap(obj,axHandle)
-            imshow(obj.VisibleMap,'Parent',axHandle,'InitialMagnification',100);
-%             image(obj.VisibleMap,'Parent',axHandle);
+            % obj.VisibleMap is of size [height_pixels width_pixels]
+            % axHandle.Position is of size [_ _ width height]
             % TODO : center on given x,y (CenterTile.RefPixel)
-            % TODO : only display the pixels visible in the current axes dimensions?
+            % TODO : manage central pixel
+            
+            % Axes position
+            axHeight    = axHandle.Position(4)
+            axWidth     = axHandle.Position(3)
+            
+            % TODO : dedicated function
+            % Build around CenterTile.RefPixel
+            ctRefPixelX = obj.CenterTileCoordinates(1)*256 + obj.CenterTile.RefPixel(2);
+            ctRefPixelY = obj.CenterTileCoordinates(2)*256 + obj.CenterTile.RefPixel(1);
+            displayedHeightPixels = [(ctRefPixelX-floor(axHeight/2)):ctRefPixelX-1 ctRefPixelX:(ctRefPixelX+floor(axHeight/2))];
+            displayedWidthPixels  = [(ctRefPixelY-floor(axWidth/2)):ctRefPixelY-1  ctRefPixelY:(ctRefPixelY+floor(axWidth/2))];
+            
+            obj.VisibleMap(ctRefPixelX-5:ctRefPixelX+5,ctRefPixelY-5:ctRefPixelY+5,:) = 0; % debug
+            % TODO : not really working, this is not the correct Lat/Lon ...
+            
+            imshow(obj.VisibleMap(displayedHeightPixels,displayedWidthPixels,:),'Parent',axHandle,'InitialMagnification',100);
+%             imshow(obj.VisibleMap(1:axHeight,1:axWidth,:),'Parent',axHandle,'InitialMagnification',100);
+%             image(obj.VisibleMap,'Parent',axHandle);
         end
     end
     
