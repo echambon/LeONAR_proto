@@ -14,7 +14,7 @@ classdef MapTiled
         Tiles                   = Tile;           % Map tiles storage
         CenterTileCoordinates   = [3 3];
         VisibleMap              = [];
-        DefaultTileCData        = uint8(200*ones(256,256,3)); % Gray tile if missing
+        DefaultTileCData        = 0*uint8(200*ones(256,256,3)); % Gray tile if missing
     end
     
     methods
@@ -36,7 +36,7 @@ classdef MapTiled
             imshow(obj.VisibleMap,'Parent',axHandle,'InitialMagnification',100);
 %             image(obj.VisibleMap,'Parent',axHandle);
             % TODO : center on given x,y (CenterTile.RefPixel)
-            % TODO : only display the pixels visible in the current axes dimensions
+            % TODO : only display the pixels visible in the current axes dimensions?
         end
     end
     
