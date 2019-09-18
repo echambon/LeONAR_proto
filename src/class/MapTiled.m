@@ -31,8 +31,7 @@ classdef MapTiled
             obj = obj.buildVisibleMap;
         end
         
-        % TODO: just for debug, to be transformed into true function
-        function debugDisplayMap(obj,axHandle)
+        function DisplayMap(obj,axHandle)
             % Update pixels to display
             [obj,displayedHeightPixels,displayedWidthPixels] = GetPixelsToDisplay(obj,axHandle);
             
