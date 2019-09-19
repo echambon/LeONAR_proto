@@ -57,8 +57,6 @@ classdef MapTiled
             displayedHeightPixels = (ctRefPixelX-floor(axHeight/2)):(ctRefPixelX-floor(axHeight/2))+axHeight-1;
             displayedWidthPixels  = (ctRefPixelY-floor(axWidth/2)):(ctRefPixelY-floor(axWidth/2))+axWidth-1;
             
-            length(displayedHeightPixels)
-            length(displayedWidthPixels)
             % WORKING!!! TO BE DELETED (with obj output)
             obj.VisibleMap(ctRefPixelX-5:ctRefPixelX+5,ctRefPixelY-5:ctRefPixelY+5,:) = 0; % debug
         end
