@@ -1,4 +1,4 @@
-function wheel_count = leonar_WindowScrollWheel(app,event)
+function leonar_WindowScrollWheel(app,event)
 %LEONAR_WINDOWSROLLWHEEL Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -7,7 +7,7 @@ function wheel_count = leonar_WindowScrollWheel(app,event)
 wheel_count = event.VerticalScrollCount;
 
 % Updating map current zoom and safeguarding against unavailable zooms
-app.mapCurrentZoom = max(min(app.mapCurrentZoom - app.cbMouseWheelCount,app.mapMaxZoom),app.mapMinZoom);
+app.mapCurrentZoom = max(min(app.mapCurrentZoom - wheel_count,app.mapMaxZoom),app.mapMinZoom);
 
 %% Updating map
 UpdateMapDisplay(app);
