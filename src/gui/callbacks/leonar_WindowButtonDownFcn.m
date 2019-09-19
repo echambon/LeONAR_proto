@@ -2,6 +2,9 @@ function [source,coords_source,mouse_source] = leonar_WindowButtonDownFcn(app,ev
 %LEONAR_WINDOWBUTTONDOWNFCN Summary of this function goes here
 %   Detailed explanation goes here
 
+% Initialization
+source = '';
+
 % Current point
 current_point = event.Source.CurrentPoint;
 
