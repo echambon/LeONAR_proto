@@ -24,10 +24,11 @@ x = error_longitude * n / 360;
 if zoom > 7
     lat_rad_error = atan(sinh(pi * (1 - 2*tile.Line/n)))-atan(sinh(pi * (1 - 2*(tile.Line-1)/n))); % negative toward south
     y = error_latitude/rad2deg(lat_rad_error);
-else % better but not yet fully satisfactory
+else % better at zoom 7, not fully satisfactory for lower zooms
     lat_rad_error = atan(sinh(pi * (1 - 2*(tile.Line*256+tile.RefPixel(2))/n/256)))-atan(sinh(pi * (1 - 2*(tile.Line*256+tile.RefPixel(2)-1)/n/256)));
     y = error_latitude/rad2deg(lat_rad_error)/256;
 end
+y
 
 % Update reference pixel
 tile.RefPixel   = floor([256*x+1 256*y+1]);
