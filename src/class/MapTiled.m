@@ -14,7 +14,7 @@ classdef MapTiled
         Tiles                   = Tile;           % Map tiles storage
         CenterTileCoordinates   = [3 3];
         VisibleMap              = [];
-        DefaultTileCData        = 0*uint8(200*ones(256,256,3)); % Gray tile if missing
+        DefaultTileCData        = uint8(200*ones(256,256,3)); % Gray tile if missing
     end
     
     methods
