@@ -2,7 +2,7 @@ function leonar_WindowButtonMotion(app,event)
 %LEONAR_WINDOWSROLLWHEEL Summary of this function goes here
 %   Detailed explanation goes here
 
-if app.mapClicked
+if app.mapClicked && strcmp(app.mapMouseSource,'normal') % left click
     tmpPreviousIntersectionPoint   = app.mapFigureIntersectionPoint;
     
     % Updating motion counter
