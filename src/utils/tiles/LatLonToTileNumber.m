@@ -14,23 +14,40 @@ tile.Column     = floor(n * ((longitude + 180) / 360));
 lat_rad         = deg2rad(latitude);
 tile.Line       = floor(n * (1 - (log(tan(lat_rad) + sec(lat_rad)) / pi)) /2);
 
-%% Also store pixel
-[tmp_latitude,tmp_longitude] = TileNumberToLatLon(tile,zoom);
-error_longitude = longitude - tmp_longitude; % > 0 to the est
-error_latitude  = latitude - tmp_latitude; % < 0 to the south
+%% Debug
+% Get latitude & longitude of top left pixel of center tile
+[t_latitude,t_longitude] = TileNumberToLatLon(tile,zoom);
 
-x = error_longitude * n / 360;
+% Get latitude & longitude of top left pixel of tile directly to the south-east of center tile
+SE_tile = tile;
+SE_tile.Line = tile.Line + 1;
+SE_tile.Column = tile.Column + 1;
+[t_latitude_se,t_longitude_se] = TileNumberToLatLon(SE_tile,zoom);
 
-if zoom > 7
-    lat_rad_error = atan(sinh(pi * (1 - 2*tile.Line/n)))-atan(sinh(pi * (1 - 2*(tile.Line-1)/n))); % negative toward south
-    y = error_latitude/rad2deg(lat_rad_error);
-else % better at zoom 7, not fully satisfactory for lower zooms
-    lat_rad_error = atan(sinh(pi * (1 - 2*(tile.Line*256+tile.RefPixel(2))/n/256)))-atan(sinh(pi * (1 - 2*(tile.Line*256+tile.RefPixel(2)-1)/n/256)));
-    y = error_latitude/rad2deg(lat_rad_error)/256;
-end
+% Compute resolutions
+lat_resolution = -(t_longitude-t_longitude_se)/256;
+lon_resolution = -(t_latitude-t_latitude_se)/256;
+
+% Affine Transformation Matrix
+% A: pixel size in the x-direction in map units/pixel
+% D: rotation about y-axis
+% B: rotation about x-axis
+% E: pixel size in the y-direction in map units, almost always negative
+% C: x-coordinate of the center of the upper left pixel
+% F: y-coordinate of the center of the upper left pixel
+A = lat_resolution;
+B = 0;
+C = t_longitude;
+D = 0;
+E = lon_resolution;
+F = t_latitude;
+
+% Pixel coordinates in center tile
+pixelX = ( E*longitude-B*latitude+B*F-E*C)/(A*E-D*B);
+pixelY = (-D*longitude+A*latitude+D*C-A*F)/(A*E-D*B);
 
 % Update reference pixel
-tile.RefPixel   = floor([256*x+1 256*y+1]);
+tile.RefPixel   = floor([pixelX pixelY]);
 
 end
 
