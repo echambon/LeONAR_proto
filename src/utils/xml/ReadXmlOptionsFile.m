@@ -1,14 +1,18 @@
-function options = ReadXmlOptionsFile(filepath)
+function options = ReadXmlOptionsFile(path)
 %READXMLOPTIONSFILE Summary of this function goes here
 %   Detailed explanation goes here
 
+t_path = path;
+if ~strcmp(t_path(end),filesep)
+    t_path = [t_path filesep];
+end
+
 try
-    DOMnode	= xmlread(filepath);
+    DOMnode	= xmlread([t_path filesep 'options.xml']);
     options	= ChildrenToStruct(DOMnode);
-    
 catch
-    % File not found, returns empty structure
-    options = struct();
+    % File not found, throw error
+    error('XML option file not found');
 end
 
 end
