@@ -28,5 +28,8 @@ zoomLevels = cellfun(@(x)str2double(x),subFoldersNames);
 minZoom = min(zoomLevels);
 maxZoom = max(zoomLevels);
 
+% Protect against zoom level 0
+minZoom = max(minZoom,1);
+
 end
 
