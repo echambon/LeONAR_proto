@@ -12,6 +12,7 @@ addpath(genpath(fullfile(currentFolder,'class')));
 addpath(genpath(fullfile(currentFolder,'gui')));
 addpath(genpath(fullfile(currentFolder,'utils')));
 addpath(genpath(fullfile(currentFolder,'inc')));
+addpath(genpath(fullfile(currentFolder,'res')));
 
 % Initialize variables
 % TODO
