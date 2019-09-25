@@ -12,7 +12,4 @@ app.mapCurrentZoom = max(min(app.mapCurrentZoom - wheel_count,app.mapMaxZoom),ap
 %% Updating map
 UpdateMapDisplay(app);
 
-%% Debug
-app.DebugLabel.Text = num2str(app.mapCurrentZoom);
-
 end

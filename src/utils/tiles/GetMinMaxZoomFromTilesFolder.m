@@ -24,6 +24,11 @@ subFolders = files(dirFlags & realDirFlags);
 subFoldersNames = {subFolders.name};
 zoomLevels = cellfun(@(x)str2double(x),subFoldersNames);
 
+% Check if we are really in a tiles folder
+if isempty(zoomLevels) || any(isnan(zoomLevels))
+    error('folder is not a tile folder');
+end
+
 % Deduction of min and max zoom levels
 minZoom = min(zoomLevels);
 maxZoom = max(zoomLevels);
