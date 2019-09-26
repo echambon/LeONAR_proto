@@ -31,12 +31,12 @@ classdef MapTiled
             obj = obj.buildVisibleMap;
         end
         
-        function DisplayMap(obj,axHandle)
-            % TODO : add function to add pixels of an element to the correct location on VisibleMap (example with
-            % myShip.ShipMarker
-            
+        function DisplayMap(obj,axHandle,varargin)            
             % Update pixels to display
             [obj,displayedHeightPixels,displayedWidthPixels] = GetPixelsToDisplay(obj,axHandle);
+            
+            % Add elements (marker, etc.) to the visible map
+            obj = obj.addToVisibleMap(varargin);
             
             % Showing map
             im = imshow(obj.VisibleMap(displayedHeightPixels,displayedWidthPixels,:),'Parent',axHandle,'InitialMagnification',100);
@@ -46,7 +46,7 @@ classdef MapTiled
     end
     
     methods (Access = private)
-        function [obj,displayedHeightPixels,displayedWidthPixels] = GetPixelsToDisplay(obj,axHandle)
+        function [obj,displayedHeightPixels,displayedWidthPixels] = GetPixelsToDisplay(obj,axHandle)            
             % obj.VisibleMap is of size [height_pixels width_pixels]
             % axHandle.Position is of size [_ _ width height]            
             % Axes position
@@ -85,7 +85,26 @@ classdef MapTiled
             end
         end
         
-        function obj = buildVisibleMap(obj)
+        function obj = addToVisibleMap(obj,varargin)
+            % TODO: a lot of work here
+            tmpElementPosition  = [500 500]; % temporary : manage differently
+            tmpElement          = varargin{1}{1}; % conversion to uint16 for sum % temporary: loop over varargins
+            tmpElementSize      = size(tmpElement);
+            
+            tmpVisibleMap = uint16(obj.VisibleMap);
+%             tmpVisibleMap(tmpElementPosition(1):tmpElementPosition(1)+tmpElementSize(1)-1,tmpElementPosition(2):tmpElementPosition(2)+tmpElementSize(2)-1,:) = ...
+%                 tmpVisibleMap(tmpElementPosition(1):tmpElementPosition(1)+tmpElementSize(1)-1,tmpElementPosition(2):tmpElementPosition(2)+tmpElementSize(2)-1,:) ...
+%                 + tmpElement;
+            % manage transparency for white
+            tmpVisibleMap(tmpElementPosition(1):tmpElementPosition(1)+tmpElementSize(1)-1,tmpElementPosition(2):tmpElementPosition(2)+tmpElementSize(2)-1,:) = ...
+                tmpElement;
+%             tmpVisibleMap(tmpVisibleMap>255) = 0;
+            obj.VisibleMap = uint8(tmpVisibleMap);
+            
+            % imshow(result);
+        end
+        
+        function obj = buildVisibleMap(obj)            
             tilesPaths = obj.getTilesPath;
 
             kk = 1;

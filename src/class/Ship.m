@@ -4,7 +4,7 @@ classdef Ship
     
     properties
         Coordinates
-        Bearing     = 0 % in degrees, 0° = N, -90° = E, 180° = S, 90° = W
+        Bearing     = -45 % in degrees, 0° = N, -90° = E, 180° = S, 90° = W
         Altitude    = 0
         Speed       = 0
         ShipMarker  = [] % Image representation of the ship
@@ -17,17 +17,17 @@ classdef Ship
     methods
         function obj = Ship(latitude,longitude)
             obj.Coordinates = Coordinates(latitude,longitude);
-            obj.GenerateShipMarker;
+            obj = obj.GenerateShipMarker;
         end
         
         function obj = UpdateShipBearing(obj,bearing)
             obj.Bearing = bearing;
-            obj.GenerateShipMarker;
+            obj = obj.GenerateShipMarker;
         end
         
         function obj = GenerateShipMarker(obj)
             % Read marker shape image
-            [tmpMarker,~,~] = imread(obj.MarkerName); % with other outputs to get alpha channel
+            tmpMarker = imread(obj.MarkerName);
             
             % Rotate marker
             tmpMarkerRotated = zeros(size(tmpMarker));
@@ -45,16 +45,16 @@ classdef Ship
                         y = round(y) + midy;
             
                         if (x>=1 && y>=1 && x<=size(tmpMarkerRotated,2) && y<=size(tmpMarkerRotated,1))
-                          tmpMarkerRotated(ii,jj,kk) = marker(x,y,kk);         
+                          tmpMarkerRotated(ii,jj,kk) = tmpMarker(x,y,kk);         
                         end
                     end
                 end
             end
             
             % Setting color for non-transparent pixel
-            tmpMarkerRotated = imresize(tmpMarkerRotated,0.1);
-            tmpMarkerRotated(tmpMarkerRotated>0) = 255;
-            tmpMarkerRotated(tmpMarkerRotated(:,:,1)>0)=0; % red
+            tmpMarkerRotated = uint16(imresize(tmpMarkerRotated,0.1)); % TODO: change magnifier in function of zoom
+%             tmpMarkerRotated(tmpMarkerRotated>0) = 255;
+%             tmpMarkerRotated(tmpMarkerRotated(:,:,1)>0)=0; % red
             
             % Assignation
             obj.ShipMarker = tmpMarkerRotated;
