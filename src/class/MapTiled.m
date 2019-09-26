@@ -86,7 +86,6 @@ classdef MapTiled
         end
         
         function obj = addToVisibleMap(obj,varargin)
-            % TODO: a lot of work here
             nvarargin = length(varargin{1});
             for iElement = 1:nvarargin
                 tmpElement          = varargin{1}{iElement};

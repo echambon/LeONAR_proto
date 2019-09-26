@@ -11,7 +11,7 @@ classdef Ship
     end
     
     properties(Access = private)
-        MarkerName = 'marker.png'
+        MarkerName = 'ship.png'
     end
     
     methods

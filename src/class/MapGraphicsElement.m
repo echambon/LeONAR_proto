@@ -4,7 +4,7 @@ classdef MapGraphicsElement
     
     properties
         Image               % image matrix (R,G,B array)
-        Position = [1 1]    % position in pixel on the map
+        Position = [1 1]    % position in the map of top left pixel
     end
     
     methods
