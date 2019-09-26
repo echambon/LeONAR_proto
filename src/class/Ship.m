@@ -1,6 +1,6 @@
 classdef Ship
-    %SHIP Summary of this class goes here
-    %   Detailed explanation goes here
+    %SHIP Class to store Ship GNSS information
+    %   Also defines a function to generate a graphical representation of the Ship based on its GNSS data
     
     properties
         Coordinates

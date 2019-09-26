@@ -1,5 +1,5 @@
 classdef Tile
-    %TILE Summary of this class goes here
+    %TILE Class to store Tile information
     %   Detailed explanation goes here
     
     properties
