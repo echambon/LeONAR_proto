@@ -7,3 +7,7 @@ Maps are based on OpenStreetMap tile system also used by OpenSeaMap project (or 
 # Tiles generation
 
 To generate map tiles, we advise using Maperitive.
+
+# MATLAB version
+
+LeONAR prototype is running with MATLAB R2019b.
