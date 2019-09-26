@@ -52,7 +52,7 @@ classdef Ship
             end
             
             % Rotating and resizing image
-            tmpMarkerRotated = imresize(tmpMarkerRotated,1); % TODO: change magnifier in function of zoom
+            tmpMarkerRotated = imresize(tmpMarkerRotated,0.2,'nearest'); % TODO: change magnifier in function of zoom
             
             % Assignation
             obj.ShipMarker = tmpMarkerRotated;
