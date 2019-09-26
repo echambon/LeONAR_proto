@@ -12,7 +12,7 @@ try
     options	= ChildrenToStruct(DOMnode);
 catch
     % File not found, throw error
-    error('XML option file not found');
+    error('LeONAR:XMLOptionsFileNotFound','XML option file not found');
 end
 
 end
