@@ -30,7 +30,7 @@ classdef Ship
             tmpMarker = imread(obj.MarkerName);
             
             % Rotate marker
-            tmpMarkerRotated = zeros(size(tmpMarker));
+            tmpMarkerRotated = uint8(zeros(size(tmpMarker)));
             
             midx = floor(size(tmpMarkerRotated,2)/2);
             midy = floor(size(tmpMarkerRotated,1)/2);
@@ -51,10 +51,8 @@ classdef Ship
                 end
             end
             
-            % Setting color for non-transparent pixel
-            tmpMarkerRotated = uint16(imresize(tmpMarkerRotated,0.1)); % TODO: change magnifier in function of zoom
-%             tmpMarkerRotated(tmpMarkerRotated>0) = 255;
-%             tmpMarkerRotated(tmpMarkerRotated(:,:,1)>0)=0; % red
+            % Rotating and resizing image
+            tmpMarkerRotated = imresize(tmpMarkerRotated,1); % TODO: change magnifier in function of zoom
             
             % Assignation
             obj.ShipMarker = tmpMarkerRotated;

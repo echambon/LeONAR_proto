@@ -87,21 +87,24 @@ classdef MapTiled
         
         function obj = addToVisibleMap(obj,varargin)
             % TODO: a lot of work here
-            tmpElementPosition  = [500 500]; % temporary : manage differently
-            tmpElement          = varargin{1}{1}; % conversion to uint16 for sum % temporary: loop over varargins
+            tmpElementPosition  = [500 500]; % TODO: manage differently
+            tmpElement          = varargin{1}{1}; % TODO: loop over varargins
             tmpElementSize      = size(tmpElement);
             
-            tmpVisibleMap = uint16(obj.VisibleMap);
-%             tmpVisibleMap(tmpElementPosition(1):tmpElementPosition(1)+tmpElementSize(1)-1,tmpElementPosition(2):tmpElementPosition(2)+tmpElementSize(2)-1,:) = ...
-%                 tmpVisibleMap(tmpElementPosition(1):tmpElementPosition(1)+tmpElementSize(1)-1,tmpElementPosition(2):tmpElementPosition(2)+tmpElementSize(2)-1,:) ...
-%                 + tmpElement;
-            % manage transparency for white
-            tmpVisibleMap(tmpElementPosition(1):tmpElementPosition(1)+tmpElementSize(1)-1,tmpElementPosition(2):tmpElementPosition(2)+tmpElementSize(2)-1,:) = ...
-                tmpElement;
-%             tmpVisibleMap(tmpVisibleMap>255) = 0;
-            obj.VisibleMap = uint8(tmpVisibleMap);
+            % Assign temporary visible map
+            tmpVisibleMap = obj.VisibleMap;
             
-            % imshow(result);
+            % Update pixel by pixel
+            for ii = 1:tmpElementSize(1)
+                for jj = 1:tmpElementSize(2)
+                    if any(tmpElement(ii,jj,:) > 0) % pixel is not blank
+                        tmpVisibleMap(tmpElementPosition(1)+ii,tmpElementPosition(2)+jj,:) = tmpElement(ii,jj,:);
+                    end
+                end
+            end
+            
+            % Assign new visible map
+            obj.VisibleMap = tmpVisibleMap;
         end
         
         function obj = buildVisibleMap(obj)            
