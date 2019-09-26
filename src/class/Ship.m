@@ -4,10 +4,10 @@ classdef Ship
     
     properties
         Coordinates
-        Bearing     = -45 % in degrees, 0° = N, -90° = E, 180° = S, 90° = W
-        Altitude    = 0
-        Speed       = 0
-        ShipMarker  = [] % Image representation of the ship
+        Bearing             = -45 % in degrees, 0° = N, -90° = E, 180° = S, 90° = W
+        Altitude            = 0
+        Speed               = 0
+        GraphicsElement
     end
     
     properties(Access = private)
@@ -17,15 +17,15 @@ classdef Ship
     methods
         function obj = Ship(latitude,longitude)
             obj.Coordinates = Coordinates(latitude,longitude);
-            obj = obj.GenerateShipMarker;
+            obj = obj.GenerateMapGraphicsElement;
         end
         
         function obj = UpdateShipBearing(obj,bearing)
             obj.Bearing = bearing;
-            obj = obj.GenerateShipMarker;
+            obj = obj.GenerateMapGraphicsElement;
         end
         
-        function obj = GenerateShipMarker(obj)
+        function obj = GenerateMapGraphicsElement(obj)
             % Read marker shape image
             tmpMarker = imread(obj.MarkerName);
             
@@ -55,7 +55,7 @@ classdef Ship
             tmpMarkerRotated = imresize(tmpMarkerRotated,0.2,'nearest'); % TODO: change magnifier in function of zoom
             
             % Assignation
-            obj.ShipMarker = tmpMarkerRotated;
+            obj.GraphicsElement = MapGraphicsElement(tmpMarkerRotated,[500 500]);% TODO: manage position
         end
     end
 end

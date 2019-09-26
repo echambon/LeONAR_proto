@@ -19,7 +19,7 @@ end
 app.mapTiles = MapTiled(app.mapFolder,app.mapCurrentZoom,tmpCenterTile,app.mapSize);
 
 % Display updated map
-app.mapTiles.DisplayMap(app.Map,app.myShip.ShipMarker);
+app.mapTiles.DisplayMap(app.Map,app.myShip.GraphicsElement);
 
 end
 

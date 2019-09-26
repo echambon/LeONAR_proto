@@ -87,24 +87,28 @@ classdef MapTiled
         
         function obj = addToVisibleMap(obj,varargin)
             % TODO: a lot of work here
-            tmpElementPosition  = [500 500]; % TODO: manage differently
-            tmpElement          = varargin{1}{1}; % TODO: loop over varargins
-            tmpElementSize      = size(tmpElement);
-            
-            % Assign temporary visible map
-            tmpVisibleMap = obj.VisibleMap;
-            
-            % Update pixel by pixel
-            for ii = 1:tmpElementSize(1)
-                for jj = 1:tmpElementSize(2)
-                    if any(tmpElement(ii,jj,:) > 0) % pixel is not blank
-                        tmpVisibleMap(tmpElementPosition(1)+ii,tmpElementPosition(2)+jj,:) = tmpElement(ii,jj,:);
+            nvarargin = length(varargin{1});
+            for iElement = 1:nvarargin
+                tmpElement          = varargin{1}{iElement};
+                tmpElementImage     = tmpElement.Image;
+                tmpElementPosition  = tmpElement.Position;
+                tmpElementSize      = size(tmpElementImage);
+
+                % Assign temporary visible map
+                tmpVisibleMap = obj.VisibleMap;
+
+                % Update pixel by pixel
+                for ii = 1:tmpElementSize(1)
+                    for jj = 1:tmpElementSize(2)
+                        if any(tmpElementImage(ii,jj,:) > 0) % pixel is not blank
+                            tmpVisibleMap(tmpElementPosition(1)+ii,tmpElementPosition(2)+jj,:) = tmpElementImage(ii,jj,:);
+                        end
                     end
                 end
+
+                % Assign new visible map
+                obj.VisibleMap = tmpVisibleMap;
             end
-            
-            % Assign new visible map
-            obj.VisibleMap = tmpVisibleMap;
         end
         
         function obj = buildVisibleMap(obj)            
