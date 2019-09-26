@@ -32,6 +32,9 @@ classdef MapTiled
         end
         
         function DisplayMap(obj,axHandle)
+            % TODO : add function to add pixels of an element to the correct location on VisibleMap (example with
+            % myShip.ShipMarker
+            
             % Update pixels to display
             [obj,displayedHeightPixels,displayedWidthPixels] = GetPixelsToDisplay(obj,axHandle);
             
