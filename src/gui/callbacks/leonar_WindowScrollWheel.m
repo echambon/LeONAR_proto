@@ -10,6 +10,6 @@ wheel_count = event.VerticalScrollCount;
 app.mapCurrentZoom = max(min(app.mapCurrentZoom - wheel_count,app.mapMaxZoom),app.mapMinZoom);
 
 %% Updating map
-UpdateMapDisplay(app);
+UpdateMapDisplay(app,app.mapCenterCoordinates);
 
 end
