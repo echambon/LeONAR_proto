@@ -9,6 +9,8 @@ classdef Tile
     end
     
     methods
+        % Equality operator redefinition
+        % /!\ obj1 may be an array of Tile, obj2 may not
         function tf = eq(obj1,obj2)
             tf = false(size(obj1));
             
