@@ -17,16 +17,13 @@ classdef Ship
     methods
         function obj = Ship(latitude,longitude)
             obj.Coordinates = Coordinates(latitude,longitude);
-%             obj = obj.GenerateMapGraphicsElement;
         end
         
         function obj = UpdateShipBearing(obj,bearing)
             obj.Bearing = bearing;
-%             obj = obj.GenerateMapGraphicsElement;
         end
         
         function obj = GenerateMapGraphicsElement(obj,zoom,tiles)
-            
             % Read marker shape image
             tmpMarker = imread(obj.MarkerName);
             
@@ -37,7 +34,11 @@ classdef Ship
             obj.GraphicsElement = obj.GraphicsElement.Rotate(obj.Bearing);
             
             % Resizing
-            obj.GraphicsElement = obj.GraphicsElement.Resize(0.1); % TODO: change magnifier in function of zoom
+            dy  = 0.15;
+            dx  = 16;
+            v   = 0.16;
+            zoomFormula = @(x) max(dy/dx*x+(v-dy/dx*17),0.06);
+            obj.GraphicsElement = obj.GraphicsElement.Resize(zoomFormula(zoom));
             
             %% Marker position
             % Get tile and pixel in considered tile where to put element
@@ -48,7 +49,7 @@ classdef Ship
             posX = (markerTileRow-1)*256    + tmpMarkerTilePosition.RefPixel(2);
             posY = (markerTileColumn-1)*256 + tmpMarkerTilePosition.RefPixel(1);
             
-            % Update marker position to take marker size into account Take marker size into account
+            % Update marker position to take marker size into account
             tmpImageSize = size(obj.GraphicsElement.Image);
             posX = posX - floor(tmpImageSize(1)/2);
             posY = posY - floor(tmpImageSize(2)/2);

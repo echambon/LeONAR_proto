@@ -60,9 +60,6 @@ classdef MapTiled
             % To ensure displayed height and width are coherent with axes height and width
             displayedHeightPixels = (ctRefPixelX-floor(axHeight/2)):(ctRefPixelX-floor(axHeight/2))+axHeight-1;
             displayedWidthPixels  = (ctRefPixelY-floor(axWidth/2)):(ctRefPixelY-floor(axWidth/2))+axWidth-1;
-            
-            % WORKING!!! TO BE DELETED (with obj output)
-            obj.VisibleMap(ctRefPixelX-3:ctRefPixelX+3,ctRefPixelY-3:ctRefPixelY+3,:) = 0; % debug
         end
         
         function obj = updateMapTiles(obj)
