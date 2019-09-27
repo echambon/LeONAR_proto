@@ -29,33 +29,14 @@ classdef Ship
             % Read marker shape image
             tmpMarker = imread(obj.MarkerName);
             
-            % Rotate marker
-            tmpMarkerRotated = uint8(zeros(size(tmpMarker)));
+            % MapGraphicsElement creation
+            obj.GraphicsElement = MapGraphicsElement(tmpMarker,[500 500]); % TODO: manage position
             
-            midx = floor(size(tmpMarkerRotated,2)/2);
-            midy = floor(size(tmpMarkerRotated,1)/2);
-            tmpBearingRad = deg2rad(obj.Bearing);
+            % Rotation
+            obj.GraphicsElement = obj.GraphicsElement.Rotate(obj.Bearing);
             
-            for kk = 1:size(tmpMarkerRotated,3)
-                for ii = 1:size(tmpMarkerRotated,1)
-                    for jj = 1:size(tmpMarkerRotated,2)
-                        x =  (ii-midx)*cos(tmpBearingRad)+(jj-midy)*sin(tmpBearingRad);
-                        y = -(ii-midx)*sin(tmpBearingRad)+(jj-midy)*cos(tmpBearingRad);
-                        x = round(x) + midx;
-                        y = round(y) + midy;
-            
-                        if (x>=1 && y>=1 && x<=size(tmpMarkerRotated,2) && y<=size(tmpMarkerRotated,1))
-                          tmpMarkerRotated(ii,jj,kk) = tmpMarker(x,y,kk);         
-                        end
-                    end
-                end
-            end
-            
-            % Rotating and resizing image
-            tmpMarkerRotated = imresize(tmpMarkerRotated,0.2,'nearest'); % TODO: change magnifier in function of zoom
-            
-            % Assignation
-            obj.GraphicsElement = MapGraphicsElement(tmpMarkerRotated,[500 500]);% TODO: manage position
+            % Resizing
+            obj.GraphicsElement = obj.GraphicsElement.Resize(0.2); % TODO: change magnifier in function of zoom
         end
     end
 end
