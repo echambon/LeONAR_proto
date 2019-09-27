@@ -4,7 +4,7 @@ classdef MapGraphicsElement
     
     properties
         Image                   % image matrix (R,G,B array)
-        Position    = [1 1]     % position in the map of top left pixel
+        Position    = [1 1]     % position of top left pixel in the map
         Rotated     = 0
         Resized     = 1
     end

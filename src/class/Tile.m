@@ -9,7 +9,17 @@ classdef Tile
     end
     
     methods
-        
+        function tf = eq(obj1,obj2)
+            tf = false(size(obj1));
+            
+            for ii = 1:size(obj1,1)
+                for jj = 1:size(obj1,2)
+                    if all(obj1(ii,jj).RefPixel == obj2.RefPixel) && obj1(ii,jj).Column == obj2.Column && obj1(ii,jj).Line == obj2.Line
+                        tf(ii,jj) = true;
+                    end
+                end
+            end
+        end
     end
     
 end

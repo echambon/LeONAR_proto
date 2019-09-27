@@ -18,7 +18,11 @@ end
 % Updating MapTiled object
 app.mapTiles = MapTiled(app.mapFolder,app.mapCurrentZoom,tmpCenterTile,app.mapSize);
 
-% Display updated map
+%% Update graphics element
+% Ship
+app.myShip = app.myShip.GenerateMapGraphicsElement(app.mapCurrentZoom,app.mapTiles.Tiles); % generate graphics element
+
+%% Display updated map
 app.mapTiles.DisplayMap(app.Map,app.myShip.GraphicsElement);
 
 end

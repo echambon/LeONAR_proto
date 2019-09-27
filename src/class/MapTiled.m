@@ -8,10 +8,10 @@ classdef MapTiled
         CenterTile              = Tile;
         MapSize                 = [5 5];            % Number of tiles to store along [height width], make sure these are always odd numbers
         % MapSize depends on the displaying figure size (tiles are 256x256 pixels) + a margin of one tile on each side is taken
+        Tiles                   = Tile;           % Map tiles storage
     end
     
     properties (Access = private)
-        Tiles                   = Tile;           % Map tiles storage
         CenterTileCoordinates   = [3 3];
         VisibleMap              = [];
         DefaultTileCData        = uint8(200*ones(256,256,3)); % Gray tile if missing
