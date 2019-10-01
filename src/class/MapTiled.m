@@ -14,6 +14,7 @@ classdef MapTiled
     properties (Access = private)
         CenterTileCoordinates   = [3 3];
         VisibleMap              = [];
+        InteractiveMap          = [];
         DefaultTileCData        = uint8(200*ones(256,256,3)); % Gray tile if missing
     end
     
@@ -35,12 +36,11 @@ classdef MapTiled
             % Update pixels to display
             [obj,displayedHeightPixels,displayedWidthPixels] = GetPixelsToDisplay(obj,axHandle);
             
-            % Add elements (marker, etc.) to the visible map
-            % TODO: loop over fields of the structure
-            % TODO: also, at the same time than adding elements to the visible map, generate a shadow map containing
-            % some sort of link of each pixel to an interactive element (e.g. order id in the interactive elements
-            % structure?)
-            obj = obj.addToVisibleMap(interactiveElements.Ship.GraphicsElement);
+            % Add interactive elements (marker, etc.) to the visible map
+            listInteractiveElements = fieldnames(interactiveElements);
+            for iElement = 1:length(listInteractiveElements)
+                obj = obj.addToVisibleMap(interactiveElements.(listInteractiveElements{iElement}).GraphicsElement,iElement);
+            end
             
             % Showing map
             im = imshow(obj.VisibleMap(displayedHeightPixels,displayedWidthPixels,:),'Parent',axHandle,'InitialMagnification',100);
@@ -86,23 +86,26 @@ classdef MapTiled
             end
         end
         
-        function obj = addToVisibleMap(obj,element)
-            elementSize      = size(element.Image);
+        function obj = addToVisibleMap(obj,element,id)
+            elementSize = size(element.Image);
 
-            % Assign temporary visible map
-            tmpVisibleMap = obj.VisibleMap;
+            % Assign temporary visible & interactive maps
+            tmpVisibleMap       = obj.VisibleMap;
+            tmpInteractiveMap   = obj.InteractiveMap;
 
             % Update pixel by pixel
             for ii = 1:elementSize(1)
                 for jj = 1:elementSize(2)
-                    if any(element.Image(ii,jj,:) > 0) % pixel is not blank
-                        tmpVisibleMap(element.Position(1)+ii,element.Position(2)+jj,:) = element.Image(ii,jj,:);
+                    if any(element.Image(ii,jj,:) > 0) % pixel is not blank (=transparent)
+                        tmpVisibleMap(element.Position(1)+ii,element.Position(2)+jj,:)      = element.Image(ii,jj,:);
+                        tmpInteractiveMap(element.Position(1)+ii,element.Position(2)+jj,:) 	= id;
                     end
                 end
             end
 
-            % Assign new visible map
-            obj.VisibleMap = tmpVisibleMap;
+            % Assign new visible & interactive maps
+            obj.VisibleMap      = tmpVisibleMap;
+            obj.InteractiveMap  = tmpInteractiveMap;
         end
         
         function obj = buildVisibleMap(obj)            
@@ -124,6 +127,9 @@ classdef MapTiled
                 end
                 obj.VisibleMap = [obj.VisibleMap;tmp.(['line' num2str(ii)])];
             end
+            
+            % Also build interactive map
+            obj.InteractiveMap = zeros(size(obj.VisibleMap));
         end
         
         function TilesPath = getTilesPath(obj)
