@@ -31,16 +31,16 @@ classdef MapTiled
             obj = obj.buildVisibleMap;
         end
         
-        function DisplayMap(obj,axHandle,varargin)            
+        function DisplayMap(obj,axHandle,interactiveElements)            
             % Update pixels to display
             [obj,displayedHeightPixels,displayedWidthPixels] = GetPixelsToDisplay(obj,axHandle);
             
             % Add elements (marker, etc.) to the visible map
-            % TODO: dont use varargin but a structure and cycle over fields of the structure
+            % TODO: loop over fields of the structure
             % TODO: also, at the same time than adding elements to the visible map, generate a shadow map containing
             % some sort of link of each pixel to an interactive element (e.g. order id in the interactive elements
             % structure?)
-            obj = obj.addToVisibleMap(varargin);
+            obj = obj.addToVisibleMap(interactiveElements.Ship.GraphicsElement);
             
             % Showing map
             im = imshow(obj.VisibleMap(displayedHeightPixels,displayedWidthPixels,:),'Parent',axHandle,'InitialMagnification',100);
@@ -86,29 +86,23 @@ classdef MapTiled
             end
         end
         
-        function obj = addToVisibleMap(obj,varargin)
-            nvarargin = length(varargin{1});
-            for iElement = 1:nvarargin
-                tmpElement          = varargin{1}{iElement};
-                tmpElementImage     = tmpElement.Image;
-                tmpElementPosition  = tmpElement.Position;
-                tmpElementSize      = size(tmpElementImage);
+        function obj = addToVisibleMap(obj,element)
+            elementSize      = size(element.Image);
 
-                % Assign temporary visible map
-                tmpVisibleMap = obj.VisibleMap;
+            % Assign temporary visible map
+            tmpVisibleMap = obj.VisibleMap;
 
-                % Update pixel by pixel
-                for ii = 1:tmpElementSize(1)
-                    for jj = 1:tmpElementSize(2)
-                        if any(tmpElementImage(ii,jj,:) > 0) % pixel is not blank
-                            tmpVisibleMap(tmpElementPosition(1)+ii,tmpElementPosition(2)+jj,:) = tmpElementImage(ii,jj,:);
-                        end
+            % Update pixel by pixel
+            for ii = 1:elementSize(1)
+                for jj = 1:elementSize(2)
+                    if any(element.Image(ii,jj,:) > 0) % pixel is not blank
+                        tmpVisibleMap(element.Position(1)+ii,element.Position(2)+jj,:) = element.Image(ii,jj,:);
                     end
                 end
-
-                % Assign new visible map
-                obj.VisibleMap = tmpVisibleMap;
             end
+
+            % Assign new visible map
+            obj.VisibleMap = tmpVisibleMap;
         end
         
         function obj = buildVisibleMap(obj)            

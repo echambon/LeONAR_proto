@@ -24,7 +24,7 @@ app.mapTiles = MapTiled(app.mapFolder,app.mapCurrentZoom,tmpCenterTile,app.mapSi
 app.mapInteractiveElements.Ship = app.mapInteractiveElements.Ship.GenerateMapGraphicsElement(app.mapCurrentZoom,app.mapTiles.Tiles); % generate graphics element
 
 %% Display updated map
-app.mapTiles.DisplayMap(app.Map,app.mapInteractiveElements.Ship.GraphicsElement);
+app.mapTiles.DisplayMap(app.Map,app.mapInteractiveElements);
 
 end
 
