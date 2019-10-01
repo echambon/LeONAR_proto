@@ -36,6 +36,10 @@ classdef MapTiled
             [obj,displayedHeightPixels,displayedWidthPixels] = GetPixelsToDisplay(obj,axHandle);
             
             % Add elements (marker, etc.) to the visible map
+            % TODO: dont use varargin but a structure and cycle over fields of the structure
+            % TODO: also, at the same time than adding elements to the visible map, generate a shadow map containing
+            % some sort of link of each pixel to an interactive element (e.g. order id in the interactive elements
+            % structure?)
             obj = obj.addToVisibleMap(varargin);
             
             % Showing map

@@ -19,6 +19,7 @@ end
 app.mapTiles = MapTiled(app.mapFolder,app.mapCurrentZoom,tmpCenterTile,app.mapSize);
 
 %% Update graphics elements
+% TODO: cycle over fields of mapInteractiveElements
 % Ship
 app.mapInteractiveElements.Ship = app.mapInteractiveElements.Ship.GenerateMapGraphicsElement(app.mapCurrentZoom,app.mapTiles.Tiles); % generate graphics element
 
