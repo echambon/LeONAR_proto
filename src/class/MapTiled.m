@@ -9,12 +9,12 @@ classdef MapTiled
         MapSize                 = [5 5];            % Number of tiles to store along [height width], make sure these are always odd numbers
         % MapSize depends on the displaying figure size (tiles are 256x256 pixels) + a margin of one tile on each side is taken
         Tiles                   = Tile;           % Map tiles storage
+        InteractiveMap          = [];
+        VisibleMap              = [];
     end
     
     properties (Access = private)
         CenterTileCoordinates   = [3 3];
-        VisibleMap              = [];
-        InteractiveMap          = [];
         DefaultTileCData        = uint8(200*ones(256,256,3)); % Gray tile if missing
     end
     
@@ -32,7 +32,7 @@ classdef MapTiled
             obj = obj.buildVisibleMap;
         end
         
-        function DisplayMap(obj,axHandle,interactiveElements)            
+        function obj = DisplayMap(obj,axHandle,interactiveElements)            
             % Update pixels to display
             [obj,displayedHeightPixels,displayedWidthPixels] = GetPixelsToDisplay(obj,axHandle);
             
@@ -129,7 +129,7 @@ classdef MapTiled
             end
             
             % Also build interactive map
-            obj.InteractiveMap = zeros(size(obj.VisibleMap));
+            obj.InteractiveMap = zeros(size(obj.VisibleMap,1:2));
         end
         
         function TilesPath = getTilesPath(obj)
