@@ -47,9 +47,7 @@ classdef MapTiled
             im.Clipping = 'off';
             im.Interpolation = 'bilinear';
         end
-    end
-    
-    methods (Access = private)
+        
         function [obj,displayedHeightPixels,displayedWidthPixels] = GetPixelsToDisplay(obj,axHandle)            
             % obj.VisibleMap is of size [height_pixels width_pixels]
             % axHandle.Position is of size [_ _ width height]            
@@ -65,7 +63,9 @@ classdef MapTiled
             displayedHeightPixels = (ctRefPixelX-floor(axHeight/2)):(ctRefPixelX-floor(axHeight/2))+axHeight-1;
             displayedWidthPixels  = (ctRefPixelY-floor(axWidth/2)):(ctRefPixelY-floor(axWidth/2))+axWidth-1;
         end
-        
+    end
+    
+    methods (Access = private)
         function obj = updateMapTiles(obj)
             % Center tile coordinates in the map Tiles array
             x_ct = obj.CenterTileCoordinates(1);
@@ -98,7 +98,7 @@ classdef MapTiled
                 for jj = 1:elementSize(2)
                     if any(element.Image(ii,jj,:) > 0) % pixel is not blank (=transparent)
                         tmpVisibleMap(element.Position(1)+ii,element.Position(2)+jj,:)      = element.Image(ii,jj,:);
-                        tmpInteractiveMap(element.Position(1)+ii,element.Position(2)+jj,:) 	= id;
+                        tmpInteractiveMap(element.Position(1)+ii,element.Position(2)+jj) 	= id;
                     end
                 end
             end
