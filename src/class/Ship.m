@@ -38,7 +38,7 @@ classdef Ship
             dx  = 16;
             v   = 0.16;
             zoomFormula = @(x) max(dy/dx*x+(v-dy/dx*17),0.06);
-%             obj.GraphicsElement = obj.GraphicsElement.Resize(zoomFormula(zoom));
+            obj.GraphicsElement = obj.GraphicsElement.Resize(zoomFormula(zoom));
             
             %% Marker position
             % Get tile and pixel in considered tile where to put element

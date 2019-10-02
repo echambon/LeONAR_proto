@@ -3,7 +3,7 @@ function map_tiles = UpdateMapDisplay(app,center)
 %   Detailed explanation goes here
 
 % Clean axes
-cla(app.Map);
+% cla(app.Map);
 
 % Determining center tile
 switch class(center)

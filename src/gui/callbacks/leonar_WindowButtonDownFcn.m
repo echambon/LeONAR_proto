@@ -12,7 +12,7 @@ current_point = event.Source.CurrentPoint;
 % Also returns coordinates in the considered object
 [is_inside_map,coords_source] = gui_isInsidePosition(current_point,app.Map);
 if is_inside_map
-    source = 'Map';
+    source = 'Map'
 end
 
 % Extracting mouse source
