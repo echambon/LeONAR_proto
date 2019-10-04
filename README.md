@@ -11,3 +11,7 @@ To generate map tiles, we advise using Maperitive.
 # MATLAB version
 
 LeONAR prototype is running with MATLAB R2019b.
+
+# Dependencies
+
+* mlapptools: https://github.com/StackOverflowMATLABchat/mlapptools (fetched 04/10/2019)
