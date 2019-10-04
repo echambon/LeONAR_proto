@@ -2,9 +2,6 @@ function map_tiles = UpdateMapDisplay(app,center)
 %UPDATEMAP Summary of this function goes here
 %   Detailed explanation goes here
 
-% Clean axes
-% cla(app.Map);
-
 % Determining center tile
 switch class(center)
     case 'Ship'
