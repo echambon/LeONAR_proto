@@ -19,7 +19,7 @@ require(["dojo/on", "dojo/dom", "dojo/topic", "dojo/mouse"],
             if(mouse.isLeft(evt)) {
                 data = {action: "leftclick",
                         coord: [evt.clientX, evt.clientY]};
-            }else if(mouse.isRight(evt)) {
+            } else if(mouse.isRight(evt)) {
                 data = {action: "rightclick",
                         coord: [evt.clientX, evt.clientY]};
             } else {

@@ -1,4 +1,4 @@
-function leonar_MapImageFakeCallbacks(obj, eventData, hWin)
+function leonar_MapImageFakeCallbacks(hWin, app)
 %LEONAR_WINDOWBUTTONDOWNFCN Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -12,8 +12,7 @@ current_point = payload.coord;
 mouse_action = payload.action;
 
 % Debug
-% TODO: improve code readability (do not use indices ...)
-obj.Parent.Children(2).Children(2).Text     = num2str([current_point(1) current_point(2)]);
-obj.Parent.Children(2).Children(1).Text 	= mouse_action;
+app.DebugLabelPosition.Text	= num2str([current_point(1) current_point(2)]);
+app.DebugLabelMouse.Text	= mouse_action;
 
 end
