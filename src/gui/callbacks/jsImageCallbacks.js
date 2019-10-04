@@ -9,13 +9,13 @@ require(["dojo/on", "dojo/dom", "dojo/topic", "dojo/mouse"],
             fakeButton.click();
         });
 
-        on(myDiv, "mousemove", function(evt){
-           data = {action: "move",
+        on(myDiv, "mouseup", function(evt){
+            data = {action: "mouseup",
                     coord: [evt.clientX, evt.clientY]};
-           topic.publish("sendToMATLAB", data);
+            topic.publish("sendToMATLAB", data);
         });
 
-    	on(myDiv, "mousedown", function(evt){
+        on(myDiv, "mousedown", function(evt){
             if(mouse.isLeft(evt)) {
                 data = {action: "leftclick",
                         coord: [evt.clientX, evt.clientY]};
@@ -28,5 +28,11 @@ require(["dojo/on", "dojo/dom", "dojo/topic", "dojo/mouse"],
             }
 
             topic.publish("sendToMATLAB", data);
+        });
+
+        on(myDiv, "mousemove", function(evt){
+           data = {action: "move",
+                    coord: [evt.clientX, evt.clientY]};
+           topic.publish("sendToMATLAB", data);
         });
 });

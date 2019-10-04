@@ -43,12 +43,7 @@ classdef MapTiled
             end
             
             % Showing map
-%             im = imshow(obj.VisibleMap(displayedHeightPixels,displayedWidthPixels,:),'Parent',axHandle,'InitialMagnification',100);
-%             im = imshow(obj.InteractiveMap(displayedHeightPixels,displayedWidthPixels,:),'Parent',axHandle,'InitialMagnification',100);
             axHandle.ImageSource = obj.VisibleMap(displayedHeightPixels,displayedWidthPixels,:);
-%             axHandle.ImageSource = 255*ones(679,1360,3);
-%             im.Clipping = 'off';
-%             im.Interpolation = 'bilinear';
         end
         
         function [obj,displayedHeightPixels,displayedWidthPixels] = GetPixelsToDisplay(obj,axHandle)            
