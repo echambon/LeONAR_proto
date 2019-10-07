@@ -11,20 +11,20 @@ require(["dojo/on", "dojo/dom", "dojo/topic", "dojo/mouse"],
 
         on(myDiv, "mouseup", function(evt){
             data = {action: "mouseup",
-                    coord: [evt.clientX, evt.clientY]};
+                    coord: [evt.offsetX, evt.offsetY]};
             topic.publish("sendToMATLAB", data);
         });
 
         on(myDiv, "mousedown", function(evt){
             if(mouse.isLeft(evt)) {
                 data = {action: "leftclick",
-                        coord: [evt.clientX, evt.clientY]};
+                        coord: [evt.offsetX, evt.offsetY]};
             } else if(mouse.isRight(evt)) {
                 data = {action: "rightclick",
-                        coord: [evt.clientX, evt.clientY]};
+                        coord: [evt.offsetX, evt.offsetY]};
             } else {
                 data = {action: "otherclick",
-                        coord: [evt.clientX, evt.clientY]};
+                        coord: [evt.offsetX, evt.offsetY]};
             }
 
             topic.publish("sendToMATLAB", data);
@@ -32,7 +32,7 @@ require(["dojo/on", "dojo/dom", "dojo/topic", "dojo/mouse"],
 
         on(myDiv, "mousemove", function(evt){
            data = {action: "move",
-                    coord: [evt.clientX, evt.clientY]};
+                    coord: [evt.offsetX, evt.offsetY]};
            topic.publish("sendToMATLAB", data);
         });
 });

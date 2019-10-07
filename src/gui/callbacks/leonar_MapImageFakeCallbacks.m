@@ -5,8 +5,11 @@ function leonar_MapImageFakeCallbacks(hWin, app)
 % Retrieve and decode payload JSON:
 payload = jsondecode(hWin.executeJS('payload'));
 
-% Current point
+% Current point (origin: top left corner)
 current_point = payload.coord;
+
+% Convert to coordinates in app.Map (origin: bottom left corner)
+current_point       = current_point + 1; % translating from offset to pixel coordinate
 
 % Mouse action
 mouse_action = payload.action;
@@ -17,7 +20,7 @@ switch mouse_action
         app.mapClicked = true;
         [~,displayedHeightPixels,displayedWidthPixels] = app.mapTiles.GetPixelsToDisplay(app.Map);
         tmpInteractiveMap = app.mapTiles.InteractiveMap(displayedHeightPixels,displayedWidthPixels);
-        tmpInteractiveMap(current_point(2),current_point(1)) % TODO: a little problem (seems to be moved problem of uiimage position ?)
+        tmpInteractiveMap(current_point(2),current_point(1))
     case 'mouseup'
         app.mapClicked = false;
 end
